@@ -26,6 +26,7 @@ def merchant_register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
+            print(form)
             return redirect(merchant_login)
     return render(request,'register.html',{'form':form})
 
