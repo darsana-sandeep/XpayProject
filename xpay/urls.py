@@ -1,5 +1,8 @@
 from  django.urls import path
 
-urlpatterns = [
+from xpay import views
 
+urlpatterns = [
+    path('',views.merchant_login),
+    path('register',views.merchant_register)
 ]
