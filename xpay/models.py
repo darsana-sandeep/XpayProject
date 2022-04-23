@@ -8,7 +8,7 @@ class Merchant(models.Model):
     auth_user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     business = models.CharField(max_length=30)
     phone = models.IntegerField()
-    email = models.CharField(max_length=20)
+
     city = models.CharField(max_length=20)
     busi = models.CharField(max_length=20)
     location = models.CharField(max_length=20)
