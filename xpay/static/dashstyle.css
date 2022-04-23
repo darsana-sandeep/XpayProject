@@ -76,3 +76,5 @@
     cursor: pointer;
     border: solid 1px #BA68C8
 }
+
+@media (max-width: 767.98px) { .border-sm-start-none { border-left: none !important; } }

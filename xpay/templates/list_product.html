@@ -1,0 +1,24 @@
+{% extends 'dashboard.html' %}
+{% block body %}
+
+<h2 style="text-align:center">Product Card</h2>
+{% for i in list %}
+<div class="card">
+  <img src="{{i.image.url}}" alt="Denim Jeans" style="width:100%">
+  <h1>{{i.product_name}}</h1>
+  <p class="price">Brand: {{i.brand}}</p>
+  <p class="price">Price: ${{i.price}}</p>
+  <p class="price">GST: {{i.gst}}%</p>
+  <p>{{i.description}}</p>
+  <p><div class="btn-group">
+  <center>
+    <a class="btn btn-sm btn-danger" href="edit/{{ i.id }}">Edit</a>
+    <a class="btn btn-sm btn-danger" href="delete/{{ i.id }}">Delete</a>
+
+  </center>
+
+
+  </div></p>
+</div>
+{% endfor %}
+{% endblock %}

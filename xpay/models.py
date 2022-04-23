@@ -13,3 +13,13 @@ class Merchant(models.Model):
     busi = models.CharField(max_length=20)
     location = models.CharField(max_length=20)
     website = models.CharField(max_length=100)
+
+class Product(models.Model):
+    product_name = models.CharField(max_length=30)
+    category = models.CharField(max_length=30)
+    brand = models.CharField(max_length=30)
+    price = models.IntegerField()
+    gst = models.IntegerField()
+    description = models.CharField(max_length=30)
+    image = models.ImageField(upload_to='images')
+

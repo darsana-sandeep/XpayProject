@@ -1,11 +1,13 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 
 
 # Create your views here.
-from xpay.form import RegisterForm
-from xpay.models import Merchant
+from xpay.form import RegisterForm, ProductForm
+from xpay.models import Merchant, Product
 
 
 def merchant_login(request):
@@ -29,15 +31,6 @@ def merchant_register(request):
 
         if form.is_valid():
             form.save()
-
-            # business = request.POST['business']
-            # phone = request.POST['phone']
-            # city = request.POST['city']
-            # busi = request.POST['busi']
-            # location = request.POST['location']
-            # website = request.POST['website']
-            # member = Merchant.objects.create(business=business,phone=phone, city=city, busi=busi, location=location,website=website)
-            # member.save()
             return redirect(dashboard)
 
         else:
@@ -45,8 +38,61 @@ def merchant_register(request):
             return redirect(merchant_login)
     return render(request,'register.html',{'form':form})
 
+def merchant_logout(request):
+    logout(request)
+    return redirect(merchant_login)
+@login_required
 def dashboard(request):
     return render(request,'home.html')
+
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+
+            # Getting the current instance object to display in the template
+            img_object = form.instance
+
+            return redirect(list_product)
+    else:
+        form = ProductForm()
+
+    return render(request, 'add_product.html', {'form': form})
+
+
+def list_product(request):
+
+    list = Product.objects.all()
+    return render(request,'list_product.html',{'list':list})
+
+def delete_product(request,id):
+    list = Product.objects.get(id=id)
+    list.delete()
+    return redirect(add_product)
+
+def product_edit(request, id):
+
+    members = Product.objects.get(id=id)
+    return render(request, 'product_edit.html', {"members":members})
+
+def product_update(request, id):
+    member = Product.objects.get(id=id)
+    member.product_name = request.POST['Product']
+    member.category = request.POST['Category']
+    member.brand = request.POST['Brand']
+    member.price = request.POST['Price']
+    member.gst = request.POST['GST']
+    member.description = request.POST['product_description']
+    member.save()
+    return redirect(list_product)
+
+
+
+
+
+
+
 
 
 

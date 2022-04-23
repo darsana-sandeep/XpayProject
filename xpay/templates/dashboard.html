@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
@@ -34,6 +35,125 @@
       }
       .row.content {height:auto;}
     }
+    .form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: green;
+    box-shadow: none;
+    border: none;
+    width:100%;
+
+}
+
+.profile-button:hover {
+    background: green;
+}
+
+.profile-button:focus {
+    background:green;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: green;
+    box-shadow: none
+}
+
+.back:hover {
+    color: green;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 13px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+
+.btn-group button {
+  background-color: black; /* Green background */
+  border: 1px solid back; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
   </style>
 </head>
 <body>
@@ -46,13 +166,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="dash">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
 
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
-        <li><a href="logout"><span class="glyphicon"></span> hello, {{user.first_name}}</a></li>
+
+        <i class='fas fa-user-circle' style='font-size:24px'></i>
+        <li><a ><span class="glyphicon"></span>hello, {{user.first_name}}</a></li>
+
         <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
         {% endif %}
       </ul>
@@ -63,9 +186,17 @@
 <div class="container-fluid text-center">
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
+      <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Product</button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="add_product">Add Product</a>
+          <a href="list">Product List</a>
+
+        </div>
+      </div>
+
+
+
     </div>
     <div class="col-sm-10 text-left">
       {% block body %}
@@ -75,7 +206,28 @@
 
   </div>
 </div>
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
 
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
 
 
 </body>
