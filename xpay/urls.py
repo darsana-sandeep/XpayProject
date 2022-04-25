@@ -11,5 +11,6 @@ urlpatterns = [
     path('list',views.list_product),
     path('delete/<int:id>',views.delete_product),
     path('edit/<int:id>', views.product_edit),
-    path('edit/update/<int:id>', views.product_update)
+    path('edit/update/<int:id>', views.product_update),
+    path('profile_view',views.view_profile)
 ]

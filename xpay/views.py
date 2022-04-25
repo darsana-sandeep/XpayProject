@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 
 
 # Create your views here.
+
+
 from xpay.form import RegisterForm, ProductForm
 from xpay.models import Merchant, Product
 
@@ -87,6 +89,11 @@ def product_update(request, id):
     member.save()
     return redirect(list_product)
 
+
+def view_profile(request):
+    current_user= request.user
+    member = User.objects.get(id=current_user.id)
+    return render(request,'view_profile.html',{'member':member})
 
 
 
